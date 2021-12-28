@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call -- Apply -- Bind Methods</title>
+</head>
+<body>
+    
+    <script>
+       
+             var studentDetails = {
+            name : "Vijaya",
+            occ : "Engineer",
+            age : 21
+        };
+        var teacherDetails = {
+            name : "Aruna",
+            occ : "professor",
+            age : 34,
+            experience : "10 years"
+        };
+
+        var printingFormat = function(gender,city){
+            console.log(`Name is:${this.name}, Occupation is:${this.occ} Age is:${this.age} -- Gender:${gender} -- city : ${city}`);
+            // return `Name is:${this.name}, Occupation is:${this.occ} Age is:${this.age} -- Gender:${this.gender} -- city : ${this.city}`;
+        }
+
+        /**
+         *  call() --> Function borrowing
+         * Syntax:
+         * ===========
+         * function.call(Reference_object, Arg1, Arg2);
+         *    --> Parameter is passed through values
+         * */
+        printingFormat.call(studentDetails,"female","Chennai");
+        printingFormat.call(teacherDetails,"female","Bangalore");
+
+          /**
+         *  apply() --> Function borrowing
+         * Syntax:
+         * ===========
+         * function.apply(Reference_object,[arg1,arg2,arg3,arg4]);
+         *    --> Parameter is passed through arrays
+         * */
+
+        printingFormat.apply(studentDetails,["Female","Hosur"]);
+
+          /**
+         *  bind() ---> Returns function
+         * Syntax:
+         * ===========
+         * let funValue = function.bind(Reference_object,[arg1,arg2,arg3,arg4]);
+         *     Calling function with bind() method returns values..
+         * */
+       
+         let functionReturn = printingFormat.bind(teacherDetails,"Female","Coimbatore");
+         functionReturn();
+   
+
+           /**
+         *  Prototype Inheritance
+         * Array.__proto__
+         *    ---> gives an object
+         * Array.__proto__.__proto__
+         *    ---> null
+         *  
+         *    That is why we get the datatype as Object
+         * 
+         * */
+
+         var prototype = studentDetails.__proto__;
+         console.log(prototype);
+         prototype = studentDetails.__proto__.__proto__;
+         console.log(prototype);
+
+         // prototype Inheritance will inheritance the prototype 
+        //    Array.__proto__  ==> object(returns)
+        //    Object.__proto__  ==> null
+
+       
+     
+        var printingConcept = function(gender,city){
+            console.log(`Name is:${this.name}, Occupation is:${this.occ} Age is:${this.age} -- Gender:${gender} -- city : ${city} -- Experience : ${this.experience}`);
+        }
+        //not recommded method....
+        studentDetails.__proto__ =  teacherDetails;
+
+        printingConcept.call(teacherDetails,"Female","Dharmapuri");
+        printingConcept.call(studentDetails,"Female","Dharmapuri");
+
+
+    </script>
+</body>
+</html>
